@@ -5,7 +5,7 @@ import 'components/InterviewerList.scss';
 import InterviewerListItem from './InterviewerListItem';
 
 export default function InterviewerList(props) {
-  
+ console.log('why is props undefined',props);
   const parsedInterviewers = props.interviewers.map((interviewer) => <InterviewerListItem
    key={interviewer.id}  
     selected={ interviewer.id === props.interviewer} 
