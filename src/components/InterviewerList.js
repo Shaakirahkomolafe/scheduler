@@ -4,15 +4,18 @@ import 'components/InterviewerList.scss';
 
 import InterviewerListItem from './InterviewerListItem';
 
-export default function InterviewerList(props) {
- console.log('why is props undefined',props);
+import PropTypes from 'prop-types'; // ES6
+
+
+function InterviewerList(props) {
+
   const parsedInterviewers = props.interviewers.map((interviewer) => <InterviewerListItem
    key={interviewer.id}  
     selected={ interviewer.id === props.interviewer} 
     name={interviewer.name}
     avatar={interviewer.avatar}
     setInterviewer={event => props.setInterviewer(interviewer.id)}
-   >{console.log("intervieweeer",interviewer.id, 'prropps', props.interviewer)}
+   >
     </InterviewerListItem>);
 
   return (
@@ -22,3 +25,9 @@ export default function InterviewerList(props) {
     </section>
   );
 }
+
+InterviewerList.propTypes = {
+  interviewers: PropTypes.array.isRequired
+};
+
+export default InterviewerList;

@@ -86,7 +86,7 @@ function destroy() {
         onCancel={() => transition(SHOW)}
         onSave={save}
         />
-
+      
       )}
       {mode === ERROR_SAVE && <Error message='Error while saving' onClose={() => transition(EMPTY)}
         />}
