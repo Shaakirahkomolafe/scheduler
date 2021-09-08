@@ -22,12 +22,6 @@ export default function Application(props) {
     bookInterview,
     cancelInterview
   } = useApplicationData();
-
-
-
-
-
-
  //helper function imported to get an appointment
 const appointments = getAppointmentsForDay(state, state.day)
 const  appointmentList =appointments.map(

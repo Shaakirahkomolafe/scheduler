@@ -1,11 +1,11 @@
 import { useState } from "react";
 
 export default function useVisualMode(initial) {
-  
+  //react hooks to change mode
   const[mode, setMode] = useState(initial) ;
   const [history, setHistory] = useState([initial]); // This line is new!
 
-
+//function to transition through different states
   function transition(mode, replace = false) {
     setMode(mode)
     if (replace === true) {
@@ -13,6 +13,7 @@ export default function useVisualMode(initial) {
    }
     setHistory((prev) => [...prev, mode])
   }
+  //function to go back to a previous state
 function back(){
 if(history.length > 1){
   history.pop()

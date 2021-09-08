@@ -51,7 +51,6 @@ useEffect(() => {
           return day
         }
       })
-      console.log('updated day',updateDays);
       return updateDays
     }
    

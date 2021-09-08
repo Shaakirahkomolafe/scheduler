@@ -1,5 +1,5 @@
 export function getAppointmentsForDay(state, day) {
-
+//function to get appointments for each day
   const filteredDay = state.days.filter(d => d.name === day);
   let dayAppointment = [];
 
@@ -14,7 +14,8 @@ export function getAppointmentsForDay(state, day) {
 }
 
 export  function getInterview(state, interview) {
-  console.log('interview object', interview);
+  //function to get interview
+  
   if (!interview){
     return null;
   }
@@ -25,15 +26,13 @@ export  function getInterview(state, interview) {
     filteredInterview = interviewer
     }
   }
-  interview.interviewer = filteredInterview;
-  console.log('label for interview', interview)
-  
+  interview.interviewer = filteredInterview;  
   return interview;
 }
 
 export function getInterviewersForDay(state, day){
+  //function get interviewers for a day
   const filteredDay = state.days.filter(d => d.name === day);
-  console.log('filtered day for getinterviewers', filteredDay);
   let dayInterviewer = [];
   for(let day of filteredDay) {
    for( let interviewer of Object.values(state.interviewers)){
@@ -42,6 +41,5 @@ export function getInterviewersForDay(state, day){
      }
    }
   }
-  console.log('label for day interviewer', dayInterviewer)
   return dayInterviewer;
 }
