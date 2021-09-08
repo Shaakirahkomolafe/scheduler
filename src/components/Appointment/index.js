@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Fragment } from "react";
 
 import "components/Appointment/styles.scss";
 
@@ -16,6 +16,7 @@ import Status from "./Status";
 
 import Confirm from "./Confirm";
 
+import Error from "./Error";
 
 export default function Appointment(props) {
   // constants  to help with transition
@@ -25,45 +26,39 @@ export default function Appointment(props) {
   const SAVING = "SAVING";
   const DELETING = "DELETING";
   const CONFIRM = "CONFIRM";
+  const EDIT = "EDIT";
+  const ERROR_SAVE = "ERROR SAVING";
+  const ERROR_DELETE ="ERROR DELETING";
+
   // custom react hook functions to help set mode
   const { mode, transition, back } = useVisualMode(
     props.interview ? SHOW : EMPTY
   );
-//save function created to help save appointments, its asynchronous
-  async function save(name, interviewer) {
-    transition(SAVING);
-    const interview = {
-      student: name,
-      interviewer,
-    };
-// this was created to make the code await the function
-    let response = await props.bookInterview(props.id, interview);
-    if (response) {
-      transition(SHOW);
-    }
-  }
-// function to delete appointments
-async function deleteAppointment(name, interviewer){
+
+  //save function created to help save appointments, its asynchronous
+function save(name, interviewer) {
   const interview = {
     student: name,
     interviewer
   };
-  console.log('deleting appointment');
-  
-  await transition(CONFIRM);
-  
-
+  transition(SAVING, true);
+  props.bookInterview(props.id, interview)
+    .then(() => transition(SHOW))
+    .catch(error => transition(ERROR_SAVE, true));
 }
-async function onConfirm() {
-transition(DELETING);
-let response =  await props.cancelInterview(props.id, props.interview)
 
-  if(response){
-transition(EMPTY);
-
+// function to delete appointments
+function destroy() {
+  
+  transition(DELETING, true);
+    props.cancelInterview(props.id)
+   .then(() => transition(EMPTY))
+   .catch(error => transition(ERROR_DELETE, true));
  }
-}
+
+
   return (
+    <Fragment>
     <article className="appointment">
        {/*to show the appointment time*/}
       <Header time={props.time} />
@@ -72,7 +67,8 @@ transition(EMPTY);
         <Show
          student={props.interview.student}
           interviewer={props.interview.interviewer}
-          cancelInterview={deleteAppointment}
+          cancelInterview={() => transition(CONFIRM)}
+          onEdit={() => transition(EDIT)}
         />
       )}
       {mode === CREATE && (
@@ -81,7 +77,21 @@ transition(EMPTY);
       {mode === SAVING && <Status message="SAVING" />}
       {mode === DELETING && <Status message="DELETING" />}
       {mode === CONFIRM && <Confirm 
-       message='Are you sure you would like to delete?' onConfirm={onConfirm} onCancel={back}/>}
+       message='Are you sure you would like to delete?' onConfirm={() => destroy()} onCancel={back}/>}
+       {mode === EDIT && (
+         <Form
+        interviewers={props.interviewers}
+        name={props.interview.student}
+        interviewer={props.interview.interviewer}
+        onCancel={() => transition(SHOW)}
+        onSave={save}
+        />
+      
+      )}
+      {mode === ERROR_SAVE && <Error message='Error while saving' onClose={() => transition(EMPTY)}
+        />}
+      {mode === ERROR_DELETE && <Error message='Error while deleting' onClose={() => transition(SHOW)}/>}
     </article>
+    </Fragment>
   );
 }

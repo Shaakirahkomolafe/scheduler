@@ -7,14 +7,13 @@ export default function useVisualMode(initial) {
 
 
   function transition(mode, replace = false) {
-    if (replace === true) {
-      setMode(mode)
-    }
     setMode(mode)
+    if (replace === true) {
+      setHistory((prev) => [...prev.slice(0, prev.length-1), mode])
+   }
     setHistory((prev) => [...prev, mode])
   }
 function back(){
-console.log('history in back function', history);
 if(history.length > 1){
   history.pop()
 }
