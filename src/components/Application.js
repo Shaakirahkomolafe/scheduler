@@ -24,6 +24,7 @@ export default function Application(props) {
   } = useApplicationData();
  //helper function imported to get an appointment
 const appointments = getAppointmentsForDay(state, state.day)
+
 const  appointmentList =appointments.map(
   //this is to show the array of appointments
  appointment => {

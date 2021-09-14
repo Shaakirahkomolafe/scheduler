@@ -135,15 +135,12 @@ storiesOf("Button", module)
       .addParameters({
         backgrounds: [{ name: "dark", value: "#222f3e", default: true }]
       })
-      .add("Initial", () => {
-        console.log('storybook interviewers',interviewers)
-        return (
+      .add("Initial", () => (
         <InterviewerList
           interviewers={interviewers}
          setInterviewer={action("setInterviewer")}
         />
-        )
-      })
+      ))
       .add("Preselected", () => (
         <InterviewerList
           interviewers={interviewers}
