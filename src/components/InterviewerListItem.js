@@ -12,7 +12,6 @@ export default function InterviewerListItem(props) {
  
 })
 
-console.log('label for interviewlist', props);
 return (
   <li className={interviewClass} onClick={props.setInterviewer}>
   <img
@@ -24,4 +23,3 @@ return (
 </li>
 );
 }
-

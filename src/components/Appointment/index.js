@@ -82,13 +82,13 @@ function destroy() {
          <Form
         interviewers={props.interviewers}
         name={props.interview.student}
-        interviewer={props.interview.interviewer}
+        interviewer={props.interview.interviewer.id}
         onCancel={() => transition(SHOW)}
         onSave={save}
         />
       
       )}
-      {mode === ERROR_SAVE && <Error message='Error while saving' onClose={() => transition(EMPTY)}
+      {mode === ERROR_SAVE && <Error message='Error while saving' onClose={() => transition(EDIT)}
         />}
       {mode === ERROR_DELETE && <Error message='Error while deleting' onClose={() => transition(SHOW)}/>}
     </article>
