@@ -19,13 +19,6 @@ export default function useVisualMode(initial) {
         }
    }
    
- //   setMode(mode)s
-  //   if (replace === true) {
-  //     setHistory((prev) => [...prev.slice(0, prev.length-1), mode])
-  //  }
-  //   setHistory((prev) => [...prev, mode])
-  // }
-  // //function to go back to a previous state
 function back(){
 if(history.length > 1){
   history.pop()
