@@ -10,11 +10,11 @@ click on this link to see a live demo of the app
 https://dreamy-swanson-dbc2f1.netlify.app/
 
 ## Dependencies for the project
-axios
-classnames
-normalize.css 
-react-dom
-react-scripts
+axios,
+classnames,
+normalize.css, 
+react-dom,
+react-scripts,
 React,
 Jest,
 Storybook,
