@@ -33,7 +33,6 @@ export default function useApplicationData() {
 
   const updateSpots = function(appointments) {		
 		const findDay = state.days.find(day => day.name === state.day);
-		
 		const emptySpots = findDay.appointments.filter(appointment => appointments[appointment].interview === null).length
 		const updateDays=state.days.map(day => {
 		if(day.name === state.day){

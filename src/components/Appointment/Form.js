@@ -1,9 +1,6 @@
 import React, {useState} from 'react'
-
 import InterviewerList from 'components/InterviewerList'
-
 import Button from 'components/Button'
-
 
 export default function Form(props) {
   const [name,  setName] = useState(props.name || "");
@@ -46,9 +43,6 @@ return(
         onChange={(event) => setName(event.target.value)}
         data-testid="student-name-input"
 
-        /*
-          This must be a controlled component
-        */
       />
     </form>
     <section className="appointment__validation">{error}</section>
