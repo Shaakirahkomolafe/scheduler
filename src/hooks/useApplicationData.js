@@ -31,33 +31,32 @@ export default function useApplicationData() {
     });
   }, []);
 
-  const updateSpots = function(requestType) {
-    const dayIndex = state.days.findIndex((day) => day.name === state.day);
-    const days = state.days
+  const updateSpots = function(appointments) {		
+		const findDay = state.days.find(day => day.name === state.day);
+		
+		const emptySpots = findDay.appointments.filter(appointment => appointments[appointment].interview === null).length
+		const updateDays=state.days.map(day => {
+		if(day.name === state.day){
+		return {...day, spots:emptySpots}
+		} else{
+		return day
+		}
+		})
+		return updateDays
+		}
 
-    if (requestType === 'create') {
-      days[dayIndex].spots --
-    } else {
-      days[dayIndex].spots ++
-    }
-    return days
-  }
 
   // function to book interview successfully,
   function bookInterview(id, interview) {
     const appointment = {
       ...state.appointments[id],
-     interview: { ...interview },
+      interview: { ...interview },
     };
-    
-   
 
     const appointments = {
       ...state.appointments,
       [id]: appointment,
     };
-    // appointments[id] = {...appointment};
-    // console.log('+++++ appointments after', appointments)
 
     //axios api request to insert data in our database
     return axios
@@ -66,7 +65,7 @@ export default function useApplicationData() {
         setState({
           ...state,
           appointments,
-          days: updateSpots('create'),
+          days: updateSpots(appointments),
         });
       });
   }
@@ -80,12 +79,12 @@ export default function useApplicationData() {
       ...state.appointments,
       [id]: appointment,
     };
-  
+
     return axios.delete(`/api/appointments/${id}`).then((response) => {
       setState({
         ...state,
         appointments,
-        days: updateSpots(),
+        days: updateSpots(appointments),
       });
     });
   }
