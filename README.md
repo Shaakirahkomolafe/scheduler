@@ -21,13 +21,13 @@ Storybook,
 Cypress
 
 ## Setup
-Install dependencies with npm install.
-Running Webpack Development Server
-npm start
-Running Jest Test Framework
-npm test
-Running Storybook Visual Testbed
-npm run storybook
+-Install dependencies with npm install.
+-Running Webpack Development Server
+  npm start.
+-Running Jest Test Framework
+  npm test
+-Running Storybook Visual Testbed
+  npm run storybook
 
 
 ## Screenshot of Project
